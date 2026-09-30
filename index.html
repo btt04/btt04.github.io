@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benjamin Trofemuk — Mechanical Engineer</title>
+<meta name="description" content="Mechanical engineer working in simulation, manufacturing, and failure analysis. M.S. candidate at Georgia Southern University, May 2027.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="label">Mechanical Engineer &mdash; Simulation &middot; Manufacturing &middot; Failure Analysis</p>
+    <h1>Benjamin<br>Trofemuk</h1>
+    <p class="tagline">I design parts, machine them, and work out why they break.</p>
+    <p class="where">
+      M.S. Mechanical Engineering &mdash; Georgia Southern University &mdash; May 2027<br>
+      Macon, GA &mdash; open to relocation
+    </p>
+    <ul class="creds">
+      <li class="key">Patent pending &mdash; named inventor</li>
+      <li class="key">Regional casting competition &mdash; winner</li>
+      <li>Ansys Fluent &amp; Mechanical</li>
+      <li>5-axis CNC &amp; EDM</li>
+      <li>Heat treat</li>
+      <li>SolidWorks CSWA</li>
+      <li>FEF scholar &mdash; Deere &middot; Brunner</li>
+      <li>AFS student chapter</li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <h2 class="section">Selected work</h2>
+
+    <div class="projects">
+
+      <a class="project" href="projects/fsae-aero.html">
+        <div class="p-num">01</div>
+        <div>
+          <p class="p-title">Formula SAE Rear Wing &amp; Full-Vehicle Aerodynamics</p>
+          <p class="p-desc">
+            Roughly 65 CFD simulations sweeping angle of attack and element
+            overlap, an 8.18M-cell IDDES transient, and then a full-vehicle model
+            &mdash; because the isolated wing stopped predicting what the wing did
+            on the car.
+          </p>
+          <p class="p-tools">Ansys Fluent &middot; IDDES &middot; 16-core HPC</p>
+        </div>
+      </a>
+
+      <a class="project" href="projects/drivetrain-fea.html">
+        <div class="p-num">02</div>
+        <div>
+          <p class="p-title">Baja Drivetrain &amp; Chassis FEA</p>
+          <p class="p-desc">
+            Bevel gears, splined shaft, gearbox housing, frame, and U-joint yoke
+            in Ansys &mdash; drivetrain loads from a gear calculator I built
+            &mdash; and the bevel gear failure the model didn&rsquo;t predict.
+          </p>
+          <p class="p-tools">Ansys Mechanical &middot; Static &amp; transient &middot; Fatigue</p>
+        </div>
+        <div class="p-thumb">
+          <img src="images/fea-housing-left-sf.jpg" alt="Safety factor contour on a Baja gearbox case">
+        </div>
+      </a>
+      <a class="project" href="projects/charge-optimization.html">
+        <div class="p-num">03</div>
+        <div>
+          <p class="p-title">Furnace Charge Chemistry Optimization</p>
+          <p class="p-desc">
+            Turned the daily decision of what goes into the furnace into a
+            nonlinear optimization &mdash; cost plus a weighted penalty for
+            missing target chemistry, solved every day in VBA. It cut alloy
+            cost.
+          </p>
+          <p class="p-tools">Excel Solver &middot; GRG Nonlinear + Multistart &middot; VBA</p>
+        </div>
+      </a>
+
+      <a class="project" href="projects/machining.html">
+        <div class="p-num">04</div>
+        <div>
+          <p class="p-title">Machining &amp; Heat Treat</p>
+          <p class="p-desc">
+            Billet knuckles, Baja gears made and heat treated in-house, titanium
+            and brass pens &mdash; and a batch of hard castings I traced back to
+            the melt, because the lathe is where a problem shows up, not where
+            it starts.
+          </p>
+          <p class="p-tools">HAAS UMC 750 &middot; Okuma &middot; Wire &amp; sinker EDM</p>
+        </div>
+        <div class="p-thumb">
+          <img src="images/surface-grinding.jpg" alt="Sparks from a surface grinder working on gear faces">
+        </div>
+      </a>
+
+      <a class="project" href="projects/permanent-mold.html">
+        <div class="p-num">05</div>
+        <div>
+          <p class="p-title">Permanent Mold Ice Cream Scoop</p>
+          <p class="p-desc">
+            Won the AFS Southeast Regional Conference casting competition. We cast
+            the mold in gray iron, machined it, then cast the scoop in aluminum
+            &mdash; the tool was a casting before it was a tool.
+          </p>
+          <p class="p-tools">Permanent mold &middot; Gray iron &middot; Aluminum &middot; Machining</p>
+        </div>
+        <div class="p-thumb">
+          <img src="images/scoop.jpg" alt="Cast aluminum ice cream scoop">
+        </div>
+      </a>
+
+      <a class="project" href="projects/cupola.html">
+        <div class="p-num">06</div>
+        <div>
+          <p class="p-title">Cupola Furnace</p>
+          <p class="p-desc">
+            The AFS student chapter&rsquo;s first cupola &mdash; designed, built,
+            and run, from the sight port to the night pour.
+          </p>
+          <p class="p-tools">Shaft furnace &middot; Refractory &middot; AFS student chapter</p>
+        </div>
+        <div class="p-thumb">
+          <img src="images/cupola.jpg" alt="Cupola furnace lit outdoors">
+        </div>
+      </a>
+
+      <a class="project" href="projects/cast-pattern-dfm.html">
+        <div class="p-num">07</div>
+        <div>
+          <p class="p-title">Parametric Cast Iron Pattern</p>
+          <p class="p-desc">
+            A 0.5&nbsp;mm knife-edge that would never have survived the mold,
+            fixed to a uniform 4.0&nbsp;mm wall by changing how the geometry was
+            constructed rather than what it looked like.
+          </p>
+          <p class="p-tools">CadQuery &middot; Design for manufacture</p>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="note">
+      <strong>Being written up:</strong> MAGMASOFT casting simulation.
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="wrap">
+    <h2 class="section">Background</h2>
+
+    <p>
+      I am finishing a master&rsquo;s in mechanical engineering at Georgia
+      Southern, where my research is experimental work on investment casting
+      shell systems. That work is under NDA and produced a patent filing on which
+      I am a <strong>named inventor</strong>.
+    </p>
+
+    <p>
+      On Eagle Motorsports&rsquo; Baja team I went from frame lead, to three
+      years on drivetrain, to <strong>Team Captain</strong> &mdash; long enough
+      to watch my own designs go through several full cycles of being built,
+      run, broken, and redesigned. As captain I set a 20&nbsp;lb weight reduction target for the car and doubled it, taking 40&nbsp;lb off. I&rsquo;m now the Formula SAE team&rsquo;s <strong>aerodynamics
+      simulation engineer</strong>.
+    </p>
+
+    <p>
+      In our AFS student chapter I built the chapter&rsquo;s <strong>first
+      cupola</strong>, and we won the <strong>AFS Southeast Regional
+      Conference casting competition</strong> with a permanent mold ice cream
+      scoop. The Foundry Educational Foundation awarded me the <strong>Donald
+      Brunner Scholarship</strong> in 2024 and the <strong>John Deere
+      Scholarship</strong> in 2025.
+    </p>
+
+    <p>
+      I have interned at Hendrickson (Motorwheel), Frito-Lay, and PCC Airfoils
+      &mdash; plant maintenance and process optimization, line efficiency
+      instrumentation, and casting quality engineering respectively.
+    </p>
+
+    <p>
+      The thread through all of it is that I would rather understand why
+      something behaved the way it did than just report that it did. That is
+      what pulled me toward simulation, and it is why these projects tend to end
+      with the cause rather than the symptom.
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:10px 26px;padding:0 var(--gutter);">
+    <a href="mailto:BenTrofemuk@gmail.com">BenTrofemuk@gmail.com</a>
+    <a href="https://www.linkedin.com/in/ben-trofemuk-b8b464235/">LinkedIn</a>
+    <span>Macon, GA</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03 — Furnace Charge Chemistry Optimization — Benjamin Trofemuk</title>
+<meta name="description" content="A furnace charge chemistry optimization model built in Excel Solver with GRG Nonlinear and Multistart, solved daily through VBA.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap"><a class="label" href="../index.html">&larr; Benjamin Trofemuk</a></div>
+</div>
+
+<div class="wrap">
+<article>
+
+  <p class="label">Project 03 &mdash; Hendrickson &mdash; 2026</p>
+  <h1>Furnace Charge Chemistry Optimization</h1>
+  <p class="standfirst">
+    Every heat starts with a decision about what goes into the furnace. I turned
+    that decision into an optimization problem and had it solve itself daily.
+  </p>
+
+  <dl class="spec">
+    <div><dt>Tool</dt><dd>Excel Solver</dd></div>
+    <div><dt>Engine</dt><dd>GRG Nonlinear + Multistart</dd></div>
+    <div><dt>Objective</dt><dd>Cost + weighted squared deviation</dd></div>
+    <div><dt>Weights</dt><dd>Per element</dd></div>
+    <div><dt>Automation</dt><dd>VBA &mdash; daily solve, penalty sweeps</dd></div>
+    <div><dt>Result</dt><dd class="on">Cut alloy cost</dd></div>
+    <div><dt>Data shown</dt><dd>None &mdash; method only</dd></div>
+  </dl>
+
+  <div class="note">
+    Plant chemistry targets, material costs, and production data are
+    Hendrickson's and do not appear here. This page describes the formulation
+    and the method.
+  </div>
+
+  <div class="body">
+    <h3>The problem</h3>
+
+    <p>
+      A charge is a mix of materials, and each one brings its own chemistry and
+      its own cost. The metal has a target chemistry, element by element. The
+      question every day is the same: what is the cheapest mix that lands on
+      target with what is actually available?
+    </p>
+
+    <p>
+      That is an optimization problem whether or not anyone writes it down as
+      one. I wrote it down.
+    </p>
+
+    <h3>Pricing the miss instead of forbidding it</h3>
+
+    <p>
+      The obvious formulation treats target chemistry as hard constraints:
+      minimize cost, subject to every element landing inside its window. The
+      model instead minimizes <strong>cost plus a squared-deviation penalty from
+      target</strong>, with a separate weight on each element.
+    </p>
+
+    <ul class="body-list">
+      <li><strong>It always returns an answer.</strong> On a day when the
+          available materials cannot hit every window at once, a hard-constraint
+          model just reports that it is infeasible. A priced penalty returns the
+          best achievable charge and shows where it falls short.</li>
+      <li><strong>Squaring the deviation punishes big misses
+          disproportionately.</strong> Being a little off on several elements
+          costs less than being far off on one.</li>
+      <li><strong>Per-element weights encode what matters.</strong> An element
+          whose excursion causes real trouble downstream carries a heavier weight
+          than one with more tolerance.</li>
+    </ul>
+  </div>
+
+  <div class="pullquote">
+    <p>
+      Hard constraints tell you when the charge can&rsquo;t hit spec. A priced
+      penalty tells you what it would cost to get closer.
+    </p>
+  </div>
+
+  <div class="body">
+    <h3>Why Multistart</h3>
+
+    <p>
+      GRG Nonlinear is a local method. It walks downhill from wherever it starts
+      and stops in the nearest valley, which is not necessarily the deepest one.
+      Multistart runs it from many starting points and keeps the best result
+      &mdash; slower, but it stops the answer depending on where the solver
+      happened to begin.
+    </p>
+
+    <h3>Sweeping the penalty</h3>
+
+    <p>
+      The weights are a dial between cost and precision. Turn them up and the
+      model chases target chemistry harder and spends more to do it; turn them
+      down and it saves money at the expense of drift. Automating penalty sweeps
+      in VBA makes that trade-off visible instead of leaving it as a guess about
+      what the weights ought to be.
+    </p>
+
+    <p>
+      The daily solve is automated the same way, so the model is a tool that
+      runs rather than a spreadsheet someone has to remember to open.
+    </p>
+  </div>
+
+  <div class="body">
+    <h3>Result</h3>
+
+    <p>
+      The model <strong>cut alloy cost</strong>.
+    </p>
+  </div>
+
+</article>
+</div>
+
+<footer class="site">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:10px 26px;padding:0 var(--gutter);">
+    <a href="../index.html">&larr; All work</a>
+    <a href="mailto:BenTrofemuk@gmail.com">BenTrofemuk@gmail.com</a>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01 — Formula SAE Aerodynamics — Benjamin Trofemuk</title>
+<meta name="description" content="Roughly 65 CFD simulations of a Formula SAE rear wing, extended to a full-vehicle external aerodynamics model in Ansys Fluent.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap"><a class="label" href="../index.html">&larr; Benjamin Trofemuk</a></div>
+</div>
+
+<div class="wrap">
+<article>
+
+  <p class="label">Project 01 &mdash; Formula SAE Aero &mdash; 2026</p>
+  <h1>Formula SAE Rear Wing &amp; Full-Vehicle Aerodynamics</h1>
+  <p class="standfirst">
+    I&rsquo;m the Formula SAE team&rsquo;s aerodynamics simulation engineer.
+    The first job was finding out what the rear wing was actually doing.
+  </p>
+
+  <dl class="spec">
+    <div><dt>Solver</dt><dd>Ansys Fluent</dd></div>
+    <div><dt>Runs</dt><dd>~65 over two weeks</dd></div>
+    <div><dt>Swept</dt><dd>Angle of attack, element overlap</dd></div>
+    <div><dt>Mesh</dt><dd>8.18M cells &middot; independence study</dd></div>
+    <div><dt>Turbulence</dt><dd>IDDES transient &middot; ~4-day solve</dd></div>
+    <div><dt>Compute</dt><dd>16-core HPC</dd></div>
+    <div><dt>Status</dt><dd class="on">Tunnel validation pending</dd></div>
+  </dl>
+
+  <div class="body">
+
+    <h3>Establishing the mesh first</h3>
+
+    <p>
+      Before any of the sweep results meant anything, I had to know the grid was
+      not the thing driving them. A mesh independence study came first &mdash;
+      refining until the solution stopped moving with cell count, so that a
+      change in the results could be attributed to the geometry rather than to
+      the discretization.
+    </p>
+
+    <p>
+      This is the unglamorous half of the project and the half I would defend
+      hardest. Sixty-five runs on an unconverged mesh is sixty-five confident
+      wrong answers.
+    </p>
+
+  </div>
+
+  <div class="body">
+    <h3>The sweep</h3>
+
+    <ul class="body-list">
+      <li><strong>Angle of attack</strong> across the usable range of the element.</li>
+      <li><strong>Element overlap</strong> &mdash; the relationship between elements,
+          which governs how the slot flow behaves and whether the upper element
+          stays attached.</li>
+    </ul>
+
+    <p>
+      Post-processing was done in Fluent directly &mdash; no scripting layer and
+      no automation.
+    </p>
+
+    <h3>Going transient</h3>
+
+    <p>
+      A steady solve averages the turbulence away, and separated flow on a
+      multi-element wing is where that averaging hides the most. So I also ran an
+      <strong>8.18M-cell IDDES transient</strong> on the wing mesh &mdash; a hybrid
+      approach that models the attached boundary layer but resolves the large,
+      unsteady structures in separated flow &mdash; as an approximately four-day
+      solve on 16 cores.
+    </p>
+  </div>
+
+  <div class="body">
+    <h3>Why the isolated wing was not enough</h3>
+
+    <p>
+      The isolated-wing results stopped predicting what the wing did once it was
+      installed on the car. So I extended the study to a full-vehicle external
+      aerodynamics model &mdash; one that resolves the wing sitting in the wake
+      of everything ahead of it, the floor interaction underneath, and the wheel
+      wake.
+    </p>
+  </div>
+
+  <div class="pullquote">
+    <p>
+      A wing that works in isolation and a wing that works at the back of a car
+      are two different wings. Finding out which one I had designed was the
+      point of the exercise.
+    </p>
+  </div>
+
+  <div class="body">
+    <h3>Validation</h3>
+
+    <p>
+      A scaled wind tunnel test of the wing profile is planned, to correlate the
+      predicted values against measured ones. Until that happens these are
+      predictions, and I would rather label them that way than imply otherwise.
+    </p>
+  </div>
+
+</article>
+</div>
+
+<footer class="site">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:10px 26px;padding:0 var(--gutter);">
+    <a href="../index.html">&larr; All work</a>
+    <a href="mailto:BenTrofemuk@gmail.com">BenTrofemuk@gmail.com</a>
+  </div>
+</footer>
+
+</body>
+</html>

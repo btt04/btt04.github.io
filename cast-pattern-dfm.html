@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07 — Parametric Cast Pattern Design — Benjamin Trofemuk</title>
+<meta name="description" content="A parametric cast pattern in CadQuery, and the wall-thickness defect that only shows up once you look at the geometry as a manufacturable part.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap"><a class="label" href="../index.html">&larr; Benjamin Trofemuk</a></div>
+</div>
+
+<div class="wrap">
+<article>
+
+  <p class="label">Project 07 &mdash; CadQuery &mdash; 2026</p>
+  <h1>Parametric Cast Iron Pattern</h1>
+  <p class="standfirst">
+    The model looked correct from every angle. It was also unmanufacturable, and
+    the reason had nothing to do with how thick I had made anything.
+  </p>
+
+  <dl class="spec">
+    <div><dt>Tool</dt><dd>CadQuery &mdash; scripted CAD</dd></div>
+    <div><dt>Defect</dt><dd>0.5&nbsp;mm knife edge</dd></div>
+    <div><dt>Corrected to</dt><dd class="on">4.0&nbsp;mm uniform wall</dd></div>
+    <div><dt>Method</dt><dd>Lofted bore tracking valley radius</dd></div>
+    <div><dt>Allowances</dt><dd>Shrinkage, draw direction</dd></div>
+  </dl>
+
+  <div class="body">
+    <h3>The defect</h3>
+
+    <p>
+      A scalloped pan is a good test case for scripted CAD. The form is defined
+      by a handful of numbers &mdash; scallop count, scallop radius, bore
+      diameter, overall height &mdash; and it is exactly the kind of part where
+      changing one of them by hand in a GUI means rebuilding half the model.
+    </p>
+
+    <p>
+      The straightforward construction &mdash; revolve the scalloped outer
+      profile, then subtract a cylindrical central bore &mdash; produces a part
+      that looks right and cannot be made.
+    </p>
+
+    <p>
+      The scallops are a wave. Their valleys come closer to the centerline than
+      their peaks do. A cylindrical bore is a constant radius. Where the deepest
+      point of a scallop valley meets that bore, the wall between them collapsed
+      to <strong>0.5&nbsp;mm</strong> &mdash; a knife edge.
+    </p>
+
+    <p>
+      That is a defect you cannot see by rotating the model, because from the
+      outside the part looks fine. It only appears when you ask the geometry a
+      manufacturing question: what is the thinnest section anywhere in this
+      solid, and can the process fill it?
+    </p>
+  </div>
+
+  <div class="body">
+    <h3>The fix</h3>
+
+    <p>
+      The answer was not to thicken the part or open up the scallops, both of
+      which change the design to suit the tool. It was to stop treating the bore
+      as a cylinder.
+    </p>
+
+    <p>
+      I lofted the bore so that it <strong>tracks the scallop valley radius at a
+      constant offset</strong>. The bore now waves in sympathy with the outer
+      surface instead of ignoring it, and the wall between them is a uniform
+      <strong>4.0&nbsp;mm</strong> everywhere rather than varying between
+      comfortable and impossible.
+    </p>
+  </div>
+
+  <div class="pullquote">
+    <p>
+      The thin wall was never really a thickness problem. It was two surfaces
+      defined in unrelated ways, and the fix was to define one of them in terms
+      of the other.
+    </p>
+  </div>
+
+  <div class="body">
+    <h3>Designing the pattern, not the part</h3>
+
+    <p>
+      The pattern is not the finished object, and its dimensions are not the
+      drawing's dimensions. Two allowances went into the model:
+    </p>
+
+    <ul class="body-list">
+      <li><strong>Shrinkage</strong> &mdash; the pattern is made deliberately
+          oversized so the part lands on nominal once it has cooled and
+          contracted.</li>
+      <li><strong>Draw direction</strong> &mdash; every surface has to release
+          cleanly along a single axis, which constrains what the scallop
+          geometry is allowed to do near the parting line.</li>
+    </ul>
+
+    <p>
+      Because the whole thing is parametric, both allowances are variables
+      rather than baked-in numbers. Changing the alloy or the process means
+      changing one value and re-running the script, not remodeling the pan.
+    </p>
+  </div>
+
+</article>
+</div>
+
+<footer class="site">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:10px 26px;padding:0 var(--gutter);">
+    <a href="../index.html">&larr; All work</a>
+    <a href="mailto:BenTrofemuk@gmail.com">BenTrofemuk@gmail.com</a>
+  </div>
+</footer>
+
+</body>
+</html>

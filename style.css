@@ -1,0 +1,434 @@
+/* Benjamin Trofemuk — portfolio
+   Dark technical. No frameworks, no build step, no external requests. */
+
+:root {
+  /* Lightened 2026-09-26 at Ben's request — charcoal slate instead of
+     near-black. Contrast re-checked: --dim is ~5.3:1 on --bg. */
+  --bg:        #1c1f26;
+  --surface:   #252932;
+  --surface-2: #2c313b;
+  --text:      #f1f2f4;
+  --muted:     #a6acb7;
+  --dim:       #8e95a1;
+  --border:    #363c48;
+  --accent:    #ff9d55;
+  --accent-bg: #3b2a1b;
+
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+          "Liberation Mono", monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+
+  --maxw: 1060px;
+  --gutter: 24px;
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 16.5px/1.6 var(--sans);
+}
+
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+a { color: var(--accent); text-underline-offset: 3px; }
+
+/* ── mono label, used everywhere ───────────────────────────── */
+
+.label {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+/* ── hero ──────────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  padding: 84px 0 56px;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* faint dot grid, hero only */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, #ffffff14 1px, transparent 0);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+  pointer-events: none;
+}
+
+.hero > * { position: relative; }
+
+.hero h1 {
+  font-size: clamp(38px, 8vw, 68px);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  margin: 14px 0 0;
+  font-weight: 600;
+}
+
+.hero .tagline {
+  font-size: clamp(18px, 3.6vw, 23px);
+  line-height: 1.4;
+  color: var(--text);
+  max-width: 24ch;
+  margin: 20px 0 0;
+  letter-spacing: -0.01em;
+}
+
+.hero .where {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+  margin: 26px 0 0;
+  line-height: 1.8;
+}
+
+.creds {
+  list-style: none;
+  padding: 0;
+  margin: 30px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.creds li {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 11px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: var(--surface);
+}
+
+.creds li.key {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+/* ── project index ─────────────────────────────────────────── */
+
+section { padding: 60px 0; }
+
+h2.section {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin: 0 0 4px;
+  font-weight: 400;
+}
+
+.projects { border-top: 1px solid var(--border); margin-top: 26px; }
+
+.project {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 0 18px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s ease;
+}
+
+.project:hover { background: var(--surface); }
+.project:hover .p-title { color: var(--accent); }
+
+.p-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim);
+  padding-top: 5px;
+  letter-spacing: 0.06em;
+}
+
+.p-title {
+  font-size: clamp(20px, 3.4vw, 25px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 9px;
+  line-height: 1.22;
+  transition: color 0.15s ease;
+}
+
+.p-desc { color: var(--muted); margin: 0 0 12px; font-size: 16px; }
+
+.p-tools {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin: 0;
+}
+
+.p-thumb { grid-column: 2; margin-bottom: 16px; }
+
+.p-thumb img,
+.p-thumb .slot {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  display: block;
+}
+
+@media (min-width: 760px) {
+  .project { grid-template-columns: 48px 1fr 300px; gap: 0 28px; }
+  .p-thumb { grid-column: 3; grid-row: 1; margin-bottom: 0; }
+}
+
+/* ── figure slots ──────────────────────────────────────────── */
+
+.slot {
+  background: var(--surface);
+  border: 1px dashed var(--border) !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 18px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--dim);
+  line-height: 1.7;
+}
+
+.slot .fname { color: var(--accent); }
+
+/* ── about ─────────────────────────────────────────────────── */
+
+.about { border-top: 1px solid var(--border); }
+.about p { max-width: 62ch; color: var(--muted); }
+.about p strong { color: var(--text); font-weight: 600; }
+
+/* ── project page ──────────────────────────────────────────── */
+
+.topbar {
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+}
+
+.topbar a { text-decoration: none; }
+.topbar a:hover { text-decoration: underline; }
+
+article { padding: 52px 0 0; }
+
+article h1 {
+  font-size: clamp(30px, 6vw, 46px);
+  line-height: 1.06;
+  letter-spacing: -0.032em;
+  margin: 12px 0 0;
+  font-weight: 600;
+  max-width: 20ch;
+}
+
+article .standfirst {
+  font-size: clamp(17px, 3vw, 20px);
+  color: var(--muted);
+  max-width: 54ch;
+  margin: 22px 0 0;
+  line-height: 1.5;
+}
+
+/* spec sheet */
+dl.spec {
+  margin: 40px 0 48px;
+  border-top: 1px solid var(--border);
+}
+
+dl.spec > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 12.5px;
+}
+
+dl.spec dt {
+  color: var(--dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+dl.spec dd { margin: 0; color: var(--text); text-align: right; }
+dl.spec dd.on { color: var(--accent); }
+
+article .body { max-width: 66ch; }
+
+article h3 {
+  font-size: 21px;
+  letter-spacing: -0.015em;
+  margin: 46px 0 14px;
+  font-weight: 600;
+}
+
+article p { margin: 0 0 18px; }
+article .body > p { color: #d6d9de; }
+article strong { color: var(--text); font-weight: 600; }
+
+ul.body-list { padding-left: 0; list-style: none; max-width: 66ch; }
+
+ul.body-list li {
+  padding: 0 0 14px 22px;
+  position: relative;
+  color: #d6d9de;
+}
+
+ul.body-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 11px;
+  width: 9px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* pull quote */
+.pullquote {
+  border-left: 2px solid var(--accent);
+  padding: 4px 0 4px 24px;
+  margin: 44px 0;
+  max-width: 60ch;
+}
+
+.pullquote p {
+  margin: 0;
+  font-size: clamp(19px, 3.2vw, 23px);
+  line-height: 1.42;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+
+/* notes */
+.note {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 18px 20px;
+  margin: 34px 0;
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 66ch;
+}
+
+.note strong { color: var(--text); }
+
+.note.todo {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+  color: #f0d3b8;
+}
+
+.note.todo strong { color: var(--accent); }
+
+/* figures */
+figure { margin: 44px 0; }
+
+figure img,
+figure .slot {
+  width: 100%;
+  border: 1px solid var(--border);
+  display: block;
+}
+
+figure img { height: auto; }
+figure .slot { aspect-ratio: 16 / 9; }
+
+figcaption {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--dim);
+  margin-top: 11px;
+  line-height: 1.7;
+}
+
+/* ── setup / result pairs (FEA page) ───────────────────────── */
+
+.pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin: 34px 0;
+  align-items: start;
+}
+
+@media (min-width: 720px) { .pair { grid-template-columns: 1fr 1fr; } }
+
+.pair figure { margin: 0; }
+
+/* ── gallery (machining page) ──────────────────────────────── */
+
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin: 40px 0;
+}
+
+@media (min-width: 620px) { .gallery { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 940px) { .gallery { grid-template-columns: 1fr 1fr 1fr; } }
+
+.gallery figure { margin: 0; }
+
+.gallery figure img,
+.gallery figure .slot {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.gallery figcaption { color: var(--muted); }
+.gallery figcaption b {
+  display: block;
+  color: var(--text);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+/* ── footer ────────────────────────────────────────────────── */
+
+footer.site {
+  border-top: 1px solid var(--border);
+  margin-top: 70px;
+  padding: 34px 0 72px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  color: var(--dim);
+}
+
+footer.site a { text-decoration: none; }
+footer.site a:hover { text-decoration: underline; }

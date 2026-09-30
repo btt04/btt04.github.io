@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02 — Baja Drivetrain &amp; Chassis FEA — Benjamin Trofemuk</title>
+<meta name="description" content="Ansys analyses of a Baja SAE drivetrain and chassis — bevel gears, splined shaft, gearbox housing, frame, and U-joint yoke — using loads from a gear calculator I built, and the gear failure the model didn't predict.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap"><a class="label" href="../index.html">&larr; Benjamin Trofemuk</a></div>
+</div>
+
+<div class="wrap">
+<article>
+
+  <p class="label">Project 02 &mdash; Baja SAE &mdash; Ansys Mechanical &mdash; 2024&ndash;2025</p>
+  <h1>Baja Drivetrain &amp; Chassis FEA</h1>
+  <p class="standfirst">
+    Five analyses of the parts that carry the load &mdash; gears, shaft, housing,
+    frame, and yoke &mdash; with the drivetrain loads worked out in a gear
+    calculator I built. And one failure the model did not predict.
+  </p>
+
+  <dl class="spec">
+    <div><dt>Solver</dt><dd>Ansys Mechanical 2025 R2</dd></div>
+    <div><dt>Drivetrain loads</dt><dd class="on">From a gear calculator I built</dd></div>
+    <div><dt>Bevel gears</dt><dd>110 lbf&middot;ft &middot; min SF 2.04</dd></div>
+    <div><dt>Spline coupling</dt><dd>193.1 lbf&middot;ft &middot; min SF 2.39</dd></div>
+    <div><dt>Gearbox housing</dt><dd>Bearing loads to 3,372 lbf &middot; min SF 1.56 / 1.78</dd></div>
+    <div><dt>Frame</dt><dd>Frontal impact &middot; 3.8 mm max deflection</dd></div>
+    <div><dt>U-joint yoke</dt><dd>Transient torsion, fatigue &middot; min SF 1.71</dd></div>
+  </dl>
+
+  <div class="body">
+    <h3>Loads first</h3>
+
+    <p>
+      An FEA result is only as good as the load it is given. The drivetrain
+      loads came from a gear calculator I built: 110&nbsp;lbf&middot;ft at the
+      bevel gears, 193.1&nbsp;lbf&middot;ft at the splined coupling, and the
+      bearing reactions on the gearbox housing, from 1,522.2 up to
+      3,372&nbsp;lbf.
+    </p>
+
+    <h3>Bevel gears</h3>
+
+    <p>
+      A static structural model of the bevel gear pair at
+      110&nbsp;lbf&middot;ft, with fixed and frictionless supports, gave a
+      minimum safety factor of <strong>2.04</strong>.
+    </p>
+  </div>
+
+  <div class="pair">
+    <figure>
+      <img src="../images/fea-bevel-setup.jpg" alt="Ansys setup of a bevel gear pair with a 110 lbf-ft moment, fixed support, and frictionless support">
+      <figcaption>Setup &mdash; 110 lbf&middot;ft moment, fixed and frictionless supports.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/fea-bevel-sf.jpg" alt="Safety factor contour on the bevel gear pair, minimum 2.04">
+      <figcaption>Safety factor &mdash; minimum 2.04.</figcaption>
+    </figure>
+  </div>
+
+  <div class="body">
+    <h3>The failure the model didn&rsquo;t predict</h3>
+
+    <p>
+      On the car, the teeth sheared.
+    </p>
+
+    <p>
+      The analysis had covered normal operation, and for that load it
+      predicted the gears would survive. The load that broke them was outside
+      that case: the CVT slamming into engagement because of its ramp profile,
+      shock-loading the teeth.
+    </p>
+  </div>
+
+  <div class="pullquote">
+    <p>
+      The model answered the question it was asked. The question was
+      incomplete.
+    </p>
+  </div>
+
+  <div class="body">
+    <h3>Splined shaft coupling</h3>
+
+    <p>
+      Static structural at 193.1&nbsp;lbf&middot;ft, with two fixed supports
+      standing in for the bearings. Minimum safety factor
+      <strong>2.39</strong>, at the splined interface.
+    </p>
+  </div>
+
+  <div class="pair">
+    <figure>
+      <img src="../images/fea-spline-setup.jpg" alt="Ansys setup of a splined drive shaft coupling with a 193.1 lbf-ft moment and two fixed supports">
+      <figcaption>Setup &mdash; 193.1 lbf&middot;ft, two fixed supports.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/fea-spline-sf.jpg" alt="Safety factor contour on the splined coupling, minimum 2.39">
+      <figcaption>Safety factor &mdash; minimum 2.39.</figcaption>
+    </figure>
+  </div>
+
+  <div class="body">
+    <h3>Gearbox housing</h3>
+
+    <p>
+      The housing&rsquo;s job is stiffness: if the case deflects, the shafts
+      move out of alignment and the gears stop meshing the way they were
+      designed to. I applied the bearing loads from the gear calculator to
+      both case halves &mdash; output 1,686&nbsp;lbf, input and second bearing
+      1,522.2&nbsp;lbf each, third bearing 3,372&nbsp;lbf &mdash; plus a
+      95.08&nbsp;lbf force.
+    </p>
+
+    <p>
+      Minimum safety factor <strong>1.56</strong> on the left case and
+      <strong>1.78</strong> on the right.
+    </p>
+  </div>
+
+  <div class="pair">
+    <figure>
+      <img src="../images/fea-housing-left-setup.jpg" alt="Left gearbox case with bearing loads applied">
+      <figcaption>Left case &mdash; bearing loads.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/fea-housing-left-sf.jpg" alt="Safety factor contour on the left gearbox case, minimum 1.56">
+      <figcaption>Left case &mdash; minimum safety factor 1.56.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/fea-housing-right-setup.jpg" alt="Right gearbox case with bearing loads applied">
+      <figcaption>Right case &mdash; bearing loads.</figcaption>
+    </figure>
+    <figure>
+      <img src="../images/fea-housing-right-sf.jpg" alt="Safety factor contour on the right gearbox case, minimum 1.78">
+      <figcaption>Right case &mdash; minimum safety factor 1.78.</figcaption>
+    </figure>
+  </div>
+
+  <div class="body">
+    <h3>Frame &mdash; frontal impact</h3>
+
+    <p>
+      A static frontal impact case on the tubular space frame, standing in for
+      the car hitting a tree or another car. Maximum deflection was
+      <strong>3.8&nbsp;mm</strong>, at the upper roll hoop, with the lower
+      mounting points staying rigid.
+    </p>
+  </div>
+
+  <figure>
+    <img src="../images/fea-frame-deformation.jpg" alt="Total deformation contour on the Baja roll cage under frontal impact, maximum 3.8 mm at the upper roll hoop">
+    <figcaption>Total deformation &mdash; 3.8 mm maximum at the upper roll hoop.</figcaption>
+  </figure>
+
+  <div class="body">
+    <h3>U-joint yoke</h3>
+
+    <p>
+      The yoke has to survive repeated loading and unloading, so I ran it as a
+      transient torsion case with the fatigue tool, and checked von Mises
+      stress at the ears to make sure they would not fail under rotation.
+      Minimum safety factor <strong>1.71</strong>.
+    </p>
+  </div>
+
+  <figure>
+    <img src="../images/fea-yoke-sf.jpg" alt="Safety factor contour on a universal joint yoke under transient torsion, minimum 1.71">
+    <figcaption>Safety factor under transient torsion &mdash; minimum 1.71.</figcaption>
+  </figure>
+
+</article>
+</div>
+
+<footer class="site">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:10px 26px;padding:0 var(--gutter);">
+    <a href="../index.html">&larr; All work</a>
+    <a href="mailto:BenTrofemuk@gmail.com">BenTrofemuk@gmail.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
